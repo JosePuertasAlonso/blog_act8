@@ -1,6 +1,5 @@
 const db = require("../config/db");
 
-// SELECT * FROM posts;
 const selectAll = async (page, limit) => {
   const [result] = await db.query(
     `
@@ -41,13 +40,7 @@ const insert = async (post) => {
         insert into posts (titulo, descripcion, fecha_creacion, categoria, autor_id)
         values (?, ?, ?, ?, ?)
     `,
-    [
-      post.titulo,
-      post.descripcion,
-      post.fecha_creacion,
-      post.categoria,
-      post.autor_id,
-    ]
+    [post.titulo, post.descripcion, new Date(), post.categoria, post.autor_id]
   );
   return result;
 };
@@ -56,23 +49,23 @@ const updateById = async (id, post) => {
   const [result] = await db.query(
     `
             update posts
-            set titulo = ?, descripcion = ?, fecha_creacion = ?, categoria = ?, autor_id = ?
+            set titulo = ?, descripcion = ?, categoria = ?, autor_id = ?
             where id = ?
         `,
-    [
-      post.titulo,
-      post.descripcion,
-      post.fecha_creacion,
-      post.categoria,
-      post.autor_id,
-      id,
-    ]
+    [post.titulo, post.descripcion, post.categoria, post.autor_id, id]
   );
   return result;
 };
 
 const deleteById = async (id) => {
   const [result] = await db.query("delete from posts where id = ?", [id]);
+  return result;
+};
+
+const deleteByAutorId = async (autorId) => {
+  const [result] = await db.query("delete from posts where autor_id = ?", [
+    autorId,
+  ]);
   return result;
 };
 
@@ -83,4 +76,5 @@ module.exports = {
   insert,
   updateById,
   deleteById,
+  deleteByAutorId,
 };

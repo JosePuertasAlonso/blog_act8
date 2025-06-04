@@ -7,18 +7,24 @@ const {
   create,
   edit,
   remove,
+  removePostsByAutorId,
 } = require("../../controllers/posts.controller");
+const { checkAutorId } = require("../../middleware/autores.middleware");
 
-// GET /api/posts
+const {
+  checkPostId,
+  checkPostExists,
+} = require("../../middleware/posts.middleware");
+
 router.get("/", getAll);
-router.get("/:postId", getById);
-router.get("/autor/:autorId", getPostsByAutorId);
+router.get("/:postId", checkPostId, getById);
+router.get("/autor/:autorId", checkAutorId, getPostsByAutorId);
 
-// POST /api/posts
 router.post("/", create);
 
-router.put("/:postId", edit);
+router.put("/:postId", checkPostId, edit);
 
-router.delete("/:postId", remove);
+router.delete("/:postId", checkPostId, checkPostExists, remove);
+router.delete("/autor/:autorId", checkAutorId, removePostsByAutorId);
 
-router.module.exports = router;
+module.exports = router;
