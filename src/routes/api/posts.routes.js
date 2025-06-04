@@ -1,32 +1,24 @@
 const router = require("express").Router();
 
-const { getAll, getById } = require("../../controllers/posts.controller");
+const {
+  getAll,
+  getById,
+  getPostsByAutorId,
+  create,
+  edit,
+  remove,
+} = require("../../controllers/posts.controller");
 
 // GET /api/posts
 router.get("/", getAll);
 router.get("/:postId", getById);
-/*
-router.post('/', checkAdmin, create);
-router.put('/:restauranteId', checkAdmin, checkRestauranteId, edit);
-router.delete('/:restauranteId', checkAdmin, checkRestauranteId, remove);
-*/
-module.exports = router;
+router.get("/autor/:autorId", getPostsByAutorId);
 
-/* 
-DEFINICIÓN DE MIDDLEWARES
+// POST /api/posts
+router.post("/", create);
 
-router.get('/prueba', primero, segundo, tercero);
+router.put("/:postId", edit);
 
-const primero = (req, res, next) => {
-    console.log('primera');
-    next();
-}
+router.delete("/:postId", remove);
 
-const segundo = (req, res, next) => {
-    console.log('segunda');
-    next();
-}
-
-const tercero = (req, res, next) => {
-    res.json('terminamos');
-} */
+router.module.exports = router;
