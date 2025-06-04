@@ -1,6 +1,5 @@
 const db = require("../config/db");
 
-// SELECT * FROM autores;
 const selectAll = async (page, limit) => {
   const [result] = await db.query(
     `

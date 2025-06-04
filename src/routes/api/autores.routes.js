@@ -7,14 +7,18 @@ const {
   edit,
   remove,
 } = require("../../controllers/autores.controller");
+const {
+  checkAutorId,
+  checkAutorExists,
+} = require("../../middleware/autores.middleware");
 
 router.get("/", getAll);
-router.get("/:autorId", getById);
-router.get("/:autorId/posts", getWithPosts);
+router.get("/:autorId", checkAutorId, getById);
+router.get("/:autorId/posts", checkAutorId, getWithPosts);
 
 router.post("/", create);
 
-router.put("/:autorId", edit);
+router.put("/:autorId", checkAutorId, edit);
 
-router.delete("/:autorId", remove);
+router.delete("/:autorId", checkAutorId, checkAutorExists, remove);
 module.exports = router;

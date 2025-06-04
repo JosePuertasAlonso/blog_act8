@@ -97,9 +97,25 @@ const remove = async (req, res) => {
   });
 };
 
+const removePostsByAutorId = async (req, res) => {
+  const { autorId } = req.params;
+  await Post.deleteByAutorId(autorId);
+  res.json({
+    message: "Posts del autor eliminados correctamente.",
+  });
+};
+
 const getAutorById = async (id) => {
   const autor = await Autor.selectById(id);
   return autor;
 };
 
-module.exports = { getAll, getById, getPostsByAutorId, create, edit, remove };
+module.exports = {
+  getAll,
+  getById,
+  getPostsByAutorId,
+  create,
+  edit,
+  remove,
+  removePostsByAutorId,
+};

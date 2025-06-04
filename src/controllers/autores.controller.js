@@ -60,9 +60,12 @@ const edit = async (req, res) => {
 
 const remove = async (req, res) => {
   const { autorId } = req.params;
+
+  await Post.deleteByAutorId(autorId);
+
   await Autor.deleteById(autorId);
   res.json({
-    message: "Autor eliminado correctamente.",
+    message: "Autor eliminado correctamente junto con sus posts",
   });
 };
 
