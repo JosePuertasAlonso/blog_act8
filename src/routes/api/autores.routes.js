@@ -1,10 +1,20 @@
 const router = require("express").Router();
+const {
+  getAll,
+  getById,
+  getWithPosts,
+  create,
+  edit,
+  remove,
+} = require("../../controllers/autores.controller");
 
-/*
+router.get("/", getAll);
+router.get("/:autorId", getById);
+router.get("/:autorId/posts", getWithPosts);
 
-router.get('/perfil', checkToken, perfil);
+router.post("/", create);
 
-router.post('/registro', registro);
-router.post('/login', login);
-*/
+router.put("/:autorId", edit);
+
+router.delete("/:autorId", remove);
 module.exports = router;
