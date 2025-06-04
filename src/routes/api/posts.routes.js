@@ -9,12 +9,12 @@ const {
   remove,
   removePostsByAutorId,
 } = require("../../controllers/posts.controller");
-const { checkAutorId } = require("../../middleware/autores.middleware");
+const { checkAutorId } = require("../../middlewares/autores.middleware");
 
 const {
   checkPostId,
   checkPostExists,
-} = require("../../middleware/posts.middleware");
+} = require("../../middlewares/posts.middleware");
 
 router.get("/", getAll);
 router.get("/:postId", checkPostId, getById);
